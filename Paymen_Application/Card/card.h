@@ -1,8 +1,8 @@
 #ifndef CARD_H
 #define CARD_H
-/*Definations*/
+/*Definitions*/
 #define lengthof(x) (sizeof(x)/sizeof(x[0]))
-#define char uint8_t
+typedef char uint8_t;
 
 typedef struct ST_cardData_t
 {
@@ -21,6 +21,6 @@ EN_cardError_t getCardHolderName(ST_cardData_t* cardData);
 EN_cardError_t getCardExpiryDate(ST_cardData_t* cardData);
 EN_cardError_t getCardPAN(ST_cardData_t* cardData);
 
-void getCardHolderNameTest(void);
+
 
 #endif

@@ -1,15 +1,27 @@
 #include"tests.h"
 #include<stdio.h>
+ST_cardData_t card = { "","","" };
 int main(void) {
 	puts("Tester Name: MAHMOUD EHAB");
 	puts("Function Name: getCardHolderName");
-	int i = 1;
-	char arr[25];
+	
 	while (1) {
-		printf("TEST CASE %d\n", i);
-		printf("Input Data: ");
-		for (int j = 0; j < 25; j++) {
-			scanf("%c", arr[j]);
-		}
+		getCardHolderNameTest();
+		continue;
 	}
+}
+void getCardHolderNameTest(void) {
+	static int i = 1;
+	//char arr[25] = "";
+	char result=0;
+	printf("TEST CASE %d\n", i);
+	//printf("Input Data: ");
+	result = getCardHolderName(&card);
+	if (result == 0) {
+		printf("Actual Result : card ok\n");
+	}
+	else {
+		printf("Actual Result: wrong name\n");
+	}
+	i++;
 }
