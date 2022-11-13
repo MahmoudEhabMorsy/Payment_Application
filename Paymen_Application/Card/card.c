@@ -2,17 +2,30 @@
 #include<stdio.h>
 #include<string.h>
 EN_cardError_t getCardHolderName(ST_cardData_t* cardData) {
-	char name[50]="";
+	uint8_t name[50]="";
 	printf("Please Enter The Name on The Card\n");
 	(void)scanf("%[^\n]%*c", name);
 	if ((strlen(name) < 20) || (strlen(name) > 24)) {
 		return WRONG_NAME;
 	}
-	char i = 0;
+	uint8_t i = 0;
 	while(name[i]!='\0') {
 		cardData->cardHolderName[i] = name[i];
 		i++;
 	}
 	return CARD_OK;
 }
-
+EN_cardError_t getCardExpiryDate(ST_cardData_t* cardData) {
+	uint8_t date[10] = "";
+	printf("Please Enter The Expiration Date of The Card\n");
+	(void)scanf("%[^\n]%*c", date);
+	if ((strlen(date) < 5) || (date[0]<'0')||(date[0]>'1')||(date[2]!='/')||(date[3]<'2')||(strlen(date)>5)||((date[0]=='0')&&(date[1]<='0'))||((date[0]=='1')&&(date[1]>'2'))||((date[3]=='2')&&(date[4]<'2'))) {
+		return WRONG_EXP_DATE;
+	}
+	uint8_t i = 0;
+	while (date[i] != '\0') {
+		cardData->cardExpirationDate[i] = date[i];
+		i++;
+	}
+	return CARD_OK;
+}
