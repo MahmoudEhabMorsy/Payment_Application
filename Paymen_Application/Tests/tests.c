@@ -6,7 +6,7 @@ int main(void) {
 	puts("Function Name: getCardHolderName");
 	
 	while (1) {
-		getCardPANTest();
+		getCardHolderNameTest();
 		
 	}
 }

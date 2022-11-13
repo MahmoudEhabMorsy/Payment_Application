@@ -10,7 +10,7 @@ EN_cardError_t getCardHolderName(ST_cardData_t* cardData) {
 	}
 	uint8_t i = 0;
 	while (name[i] != '\0') {
-		if ((name[i] < 'a' || name[i]>'z')&&(name[i]<'A'||name[i]>'Z')) {
+		if ((name[i] < 'a' || name[i]>'z')&&(name[i]<'A'||name[i]>'Z')&&(name[i]!=' ')) {
 			return WRONG_PAN;
 		}
 		i++;
