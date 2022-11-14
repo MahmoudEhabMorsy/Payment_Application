@@ -36,3 +36,15 @@ EN_terminalError_t isCardExpired(ST_cardData_t* cardData, ST_terminalData_t* ter
 	}
 	return TERMINAL_OK;
 }
+EN_terminalError_t getTransactionAmount(ST_terminalData_t* termData) {
+	float money;
+	puts("Enter The Transaction Amount:");
+	(void)scanf(" %f", &money);
+	if (money <= 0) {
+		return INVALID_AMOUNT;
+	}
+	else {
+		termData->transAmount = money;
+		return TERMINAL_OK;
+	}
+}

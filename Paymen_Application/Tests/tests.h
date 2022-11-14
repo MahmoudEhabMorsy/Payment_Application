@@ -7,4 +7,5 @@ void getCardExpiryDateTest(void);
 void getCardPANTest(void);
 void getTransactionDateTest(void);
 void isCardExpriedTest(void);
+void getTransactionAmountTest(void);
 #endif

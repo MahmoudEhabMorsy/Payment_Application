@@ -11,7 +11,8 @@ int main(void) {
 		//getCardExpiryDateTest();
 		//getCardPANTest();
 		//getTransactionDateTest();
-		isCardExpriedTest();
+		//isCardExpriedTest();
+		getTransactionAmountTest();
 	}
 }
 void getCardHolderNameTest(void) {
@@ -93,6 +94,22 @@ void isCardExpriedTest(void) {
 	}
 	else {
 		printf("Actual Result: Expired Card\n");
+	}
+	i++;
+}
+void getTransactionAmountTest(void) {
+	static int i = 1;
+	char result = 0;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	result = getTransactionAmount(&terminal);
+	printf("Expected Result: ");
+	(void)scanf(" %[^\n]%*c", arr);
+	if (result == 0) {
+		printf("Actual Result : Transaction is allowed\n");
+	}
+	else {
+		printf("Actual Result: insufficent fund\n");
 	}
 	i++;
 }
