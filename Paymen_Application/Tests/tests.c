@@ -1,13 +1,16 @@
 #include"tests.h"
 #include<stdio.h>
 ST_cardData_t card = { "","","" };
+ST_terminalData_t terminal = { 0,0,"" };
 int main(void) {
 	puts("Tester Name: MAHMOUD EHAB");
 	puts("Function Name: getCardHolderName");
 	
 	while (1) {
-		getCardHolderNameTest();
-		
+		//getCardHolderNameTest();
+		//getCardExpiryDateTest();
+		//getCardPANTest();
+		//getTransactionDateTest();
 	}
 }
 void getCardHolderNameTest(void) {
@@ -55,6 +58,22 @@ void getCardPANTest(void) {
 	}
 	else {
 		printf("Actual Result: wrong PAN\n");
+	}
+	i++;
+}
+void getTransactionDateTest(void) {
+	static int i = 1;
+	char result = 0;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	result = getTransactionDate(&terminal);
+	printf("Expected Result: ");
+	(void)scanf("%[^\n]%*c", arr);
+	if (result == 0) {
+		printf("Actual Result : Terminal ok\n");
+	}
+	else {
+		printf("Actual Result: wrong Date\n");
 	}
 	i++;
 }

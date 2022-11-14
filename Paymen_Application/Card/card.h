@@ -1,7 +1,6 @@
 #ifndef CARD_H
 #define CARD_H
 /*Definitions*/
-#define lengthof(x) (sizeof(x)/sizeof(x[0]))
 typedef char uint8_t;
 
 typedef struct ST_cardData_t
