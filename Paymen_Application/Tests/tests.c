@@ -11,6 +11,7 @@ int main(void) {
 		//getCardExpiryDateTest();
 		//getCardPANTest();
 		//getTransactionDateTest();
+		isCardExpriedTest();
 	}
 }
 void getCardHolderNameTest(void) {
@@ -74,6 +75,24 @@ void getTransactionDateTest(void) {
 	}
 	else {
 		printf("Actual Result: wrong Date\n");
+	}
+	i++;
+}
+void isCardExpriedTest(void) {
+	static int i = 1;
+	char result = 0;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	getCardExpiryDate(&card);
+	getTransactionDate(&terminal);
+	result = isCardExpired(&card,&terminal);
+	printf("Expected Result: ");
+	(void)scanf("%[^\n]%*c", arr);
+	if (result == 0) {
+		printf("Actual Result : Transaction is allowed\n");
+	}
+	else {
+		printf("Actual Result: Expired Card\n");
 	}
 	i++;
 }
