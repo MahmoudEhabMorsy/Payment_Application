@@ -12,7 +12,9 @@ int main(void) {
 		//getCardPANTest();
 		//getTransactionDateTest();
 		//isCardExpriedTest();
-		getTransactionAmountTest();
+		//getTransactionAmountTest();
+		//isBelowMaxAmountTest();
+		setMaxAmountTest();
 	}
 }
 void getCardHolderNameTest(void) {
@@ -110,6 +112,55 @@ void getTransactionAmountTest(void) {
 	}
 	else {
 		printf("Actual Result: insufficent fund\n");
+	}
+	i++;
+}
+void isBelowMaxAmountTest(void) {
+	static int i = 1;
+	float max;
+	char result = 0;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	printf("Enter The Max Amount : ");
+	(void)scanf(" %f", &max);
+	if (!setMaxAmount(&terminal, max)) {
+		if (!getTransactionAmount(&terminal)) {
+			result = isBelowMaxAmount(&terminal);
+			printf("Expected Result: ");
+			(void)scanf(" %[^\n]%*c", arr);
+			if (result == 0) {
+				printf("Actual Result : Transaction is allowed\n");
+			}
+			else {
+				printf("Actual Result: Excedded Max Amount\n");
+			}
+			
+		}
+		else {
+			printf("Invalid Transaction Amount\n");
+		}
+	}
+	else {
+		printf("Actual Result: Invalid Max Amount\n");
+	}
+	i++;
+}
+void setMaxAmountTest(void) {
+	static int i = 1;
+	char result = 0;
+	float max;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	printf("Enter The Max Amount : ");
+	(void)scanf(" %f", &max);
+	result = setMaxAmount(&terminal,max);
+	printf("Expected Result: ");
+	(void)scanf(" %[^\n]%*c", arr);
+	if (result == 0) {
+		printf("Actual Result : Valid Max Amount\n");
+	}
+	else {
+		printf("Actual Result: Invalid Max Amount\n");
 	}
 	i++;
 }
