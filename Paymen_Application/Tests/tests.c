@@ -1,9 +1,11 @@
 #include"tests.h"
 #include<stdio.h>
 #include<string.h>
-ST_cardData_t card = { "","8989374615436851","" };
+ST_cardData_t card = { "","","" };
 ST_terminalData_t terminal = { 0,0,"" };
+ST_transaction_t transData;
 extern ST_accountsDB_t accountsDB[255];
+extern ST_transaction_t transactionDB[255];
 int main(void) {
 	puts("Tester Name: MAHMOUD EHAB");
 	puts("Function Name: getCardHolderName");
@@ -19,7 +21,8 @@ int main(void) {
 		//setMaxAmountTest();
 		//isValidAccountTest();
 		//isBlockedAccountTest();
-		isAmountAvailableTest();
+		//isAmountAvailableTest();
+		saveTransactionTest();
 		
 	}
 }
@@ -239,6 +242,52 @@ void isAmountAvailableTest(void) {
 			}
 			else {
 				printf("Actual Result: Low Balance\n");
+			}
+		}
+	}
+	i++;
+}
+void saveTransactionTest(void) {
+	static int i = 1;
+	float max;
+	char result = 0;
+	ST_accountsDB_t** ref = NULL;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	getCardHolderName(&card);
+	getCardPAN(&card);
+	getCardExpiryDate(&card);
+	printf("Enter The Max Amount : ");
+	(void)scanf(" %f", &max);
+	if (!setMaxAmount(&terminal, max)) {
+		getTransactionAmount(&terminal);
+		getTransactionDate(&terminal);
+		if (!isBelowMaxAmount(&terminal)) {
+			if (!isCardExpired(&card, &terminal)) {
+				if (isValidAccount(&card, &ref)) {
+					printf("Account Not Found\n");
+				}
+				else {
+					if (isBlockedAccount(&ref)) {
+						printf("Account is Blocked\n");
+					}
+					else {
+						if (!isAmountAvailable(&terminal, &ref)) {
+							transData.cardHolderData = card;
+							transData.terminalData = terminal;
+							recieveTransactionData(&transData);
+							saveTransaction(&transData);
+							/*printf("Expected Result: ");
+							(void)scanf(" %[^\n]%*c", arr);
+							if (result == 0) {
+								printf("Actual Result : Amount Avaliable\n");
+							}
+							else {
+								printf("Actual Result: Low Balance\n");
+							}*/
+						}
+					}
+				}
 			}
 		}
 	}

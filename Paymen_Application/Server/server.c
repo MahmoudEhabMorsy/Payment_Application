@@ -1,6 +1,7 @@
 #include"server.h"
 #define NUMBER_OF_ACCOUNTS 7
 #define MAX_ACCOUNT_NUMBER 255
+int sequence_number = 1;
 ST_accountsDB_t accountsDB[MAX_ACCOUNT_NUMBER] = { 2000.0, RUNNING, "8989374615436851",
 									500000.0,RUNNING,"3469781657431596",
 									400000.0,RUNNING,"6721349578134651",
@@ -12,7 +13,27 @@ ST_accountsDB_t accountsDB[MAX_ACCOUNT_NUMBER] = { 2000.0, RUNNING, "89893746154
 ST_transaction_t transactionDB[MAX_ACCOUNT_NUMBER] = {""};
 
 EN_transState_t recieveTransactionData(ST_transaction_t* transData) {
-	
+	ST_accountsDB_t** dummy_ref = NULL;
+	if (isValidAccount(&transData->cardHolderData, &dummy_ref) == ACCOUNT_NOT_FOUND) {
+		transData->transState = FRAUD_CARD;
+		return FRAUD_CARD;
+	}
+	if (isAmountAvailable(&transData->terminalData.transAmount, &dummy_ref) == LOW_BALANCE) {
+		transData->transState == DECLINED_INSUFFECIENT_FUND;
+		return DECLINED_INSUFFECIENT_FUND;
+	}
+
+	if (isBlockedAccount(&dummy_ref) == BLOCKED_ACCOUNT) {
+		transData->transState == DECLINED_STOLEN_CARD;
+		return DECLINED_STOLEN_CARD;
+	}
+	if (saveTransactionWithoutText(&transData) == SAVING_FAILED) {
+		transData->transState == INTERNAL_SERVER_ERROR;
+		return INTERNAL_SERVER_ERROR;
+	}
+	transData->transState = APPROVED;
+	return APPROVED;
+
 }
 EN_serverError_t isValidAccount(ST_cardData_t* cardData, ST_accountsDB_t** accountRefrence) {
 	int i = 0;
@@ -42,21 +63,50 @@ EN_serverError_t isAmountAvailable(ST_terminalData_t* termData, ST_accountsDB_t*
 	}
 }
 EN_serverError_t saveTransaction(ST_transaction_t* transData) {
-	static sequence_number = 1;
-	static account_number = 1;
-	if (sequence_number == MAX_ACCOUNT_NUMBER) {
-		account_number = 1;
-	}
 	transData->transactionSequenceNumber = sequence_number;
-	int i;
-	for (i = 0; i < 4; i++) {
-		transactionDB[sequence_number][i] = transData[i];
+	if (transData->transactionSequenceNumber < 255) {
+		transactionDB[sequence_number] = *transData;
+		listSavedTransactions();
+		sequence_number++;
+		return SERVER_OK;
 	}
-	account_number++;
-	sequence_number++;
-	return SERVER_OK;
+	return SAVING_FAILED;
+
+}
+EN_serverError_t saveTransactionWithoutText(ST_transaction_t* transData) {
+	transData->transactionSequenceNumber = sequence_number;
+	if (transData->transactionSequenceNumber < 255) {
+		transactionDB[sequence_number] = *transData;
+		return SERVER_OK;
+	}
+	return SAVING_FAILED;
 
 }
 void listSavedTransactions(void) {
-
+	puts("#########################");
+	printf("\nTransaction Sequence Number: %d", transactionDB[sequence_number].transactionSequenceNumber);
+	printf("\nTransaction Date: %s", transactionDB[sequence_number].terminalData.transactionDate);
+	printf("\nTransaction Amount: %f", transactionDB[sequence_number].terminalData.transAmount);
+	switch (transactionDB[sequence_number].transState) {
+	case(APPROVED):
+		printf("\nTransaction State: APPROVED ");
+		break;
+	case(DECLINED_INSUFFECIENT_FUND):
+		printf("\nTransaction State: DECLINED INSUFFECIENT FUND ");
+		break;
+	case(DECLINED_STOLEN_CARD):
+		printf("\nTransaction State: DECLINED STOLEN CARD");
+		break;
+	case(FRAUD_CARD):
+		printf("\nTransaction State: FRAUD CARD");
+		break;
+	case(INTERNAL_SERVER_ERROR):
+		printf("\nTransaction State: INTERNAL SERVER ERROR");
+		break;
+	}
+	printf("\nTerminal Max Amount: %f", transactionDB[sequence_number].terminalData.maxTransAmount);
+	printf("\nCardholder Name: %s", transactionDB[sequence_number].cardHolderData.cardHolderName);
+	printf("\nPAN: %s", transactionDB[sequence_number].cardHolderData.primaryAccountNumber);
+	printf("\nCard Expiration Date: %s", transactionDB[sequence_number].cardHolderData.cardExpirationDate);
+	puts("\n#########################");
 }
