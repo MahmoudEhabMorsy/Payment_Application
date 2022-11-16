@@ -18,7 +18,8 @@ int main(void) {
 		//isBelowMaxAmountTest();
 		//setMaxAmountTest();
 		//isValidAccountTest();
-		isBlockedAccountTest();
+		//isBlockedAccountTest();
+		isAmountAvailableTest();
 		
 	}
 }
@@ -196,17 +197,50 @@ void isBlockedAccountTest(void) {
 	char arr[50];
 	printf("TEST CASE %d\n", i);
 	getCardPAN(&card);
-	isValidAccount(&card, &ref);
-	result = isBlockedAccount(&ref);
-	printf("Address of the Refrence = %p\n", ref);
-	printf("Address in the DB = %p\n", &accountsDB[i - 1]);
-	printf("Expected Result: ");
-	(void)scanf("%[^\n]%*c", arr);
-	if (result == 0) {
-		printf("Actual Result : Running Account\n");
+	if (isValidAccount(&card, &ref)) {
+		printf("Account Not Found\n");
 	}
 	else {
-		printf("Actual Result: Blocked Account\n");
+		result = isBlockedAccount(&ref);
+		printf("Address of the Refrence = %p\n", ref);
+		printf("Address in the DB = %p\n", &accountsDB[i - 1]);
+		printf("Expected Result: ");
+		(void)scanf("%[^\n]%*c", arr);
+		if (result == 0) {
+			printf("Actual Result : Running Account\n");
+		}
+		else {
+			printf("Actual Result: Blocked Account\n");
+		}
+	}
+	i++;
+}
+void isAmountAvailableTest(void) {
+	static int i = 1;
+	char result = 0;
+	ST_accountsDB_t** ref = NULL;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	getCardPAN(&card);
+	if (isValidAccount(&card, &ref)) {
+		printf("Account Not Found\n");
+	}
+	else {
+		if (isBlockedAccount(&ref)) {
+			printf("Account is Blocked\n");
+		}
+		else {
+			getTransactionAmount(&terminal);
+			result = isAmountAvailable(&terminal, &ref);
+			printf("Expected Result: ");
+			(void)scanf(" %[^\n]%*c", arr);
+			if (result == 0) {
+				printf("Actual Result : Amount Avaliable\n");
+			}
+			else {
+				printf("Actual Result: Low Balance\n");
+			}
+		}
 	}
 	i++;
 }

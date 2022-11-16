@@ -13,4 +13,5 @@ void isBelowMaxAmountTest(void);
 void setMaxAmountTest(void);
 void isValidAccountTest(void);
 void isBlockedAccountTest(void);
+void isAmountAvailableTest(void);
 #endif

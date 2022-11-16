@@ -1,6 +1,7 @@
 #include"server.h"
 #define NUMBER_OF_ACCOUNTS 7
-ST_accountsDB_t accountsDB[255] = { 2000.0, RUNNING, "8989374615436851",
+#define MAX_ACCOUNT_NUMBER 255
+ST_accountsDB_t accountsDB[MAX_ACCOUNT_NUMBER] = { 2000.0, RUNNING, "8989374615436851",
 									500000.0,RUNNING,"3469781657431596",
 									400000.0,RUNNING,"6721349578134651",
 									100.0,RUNNING,"1264978436812506",
@@ -8,7 +9,7 @@ ST_accountsDB_t accountsDB[255] = { 2000.0, RUNNING, "8989374615436851",
 									100000.0, BLOCKED, "5807007076043875",
 									100.0,BLOCKED,"3167980120046289"};
 
-ST_transaction_t transactionDB[255] = { 0 };
+ST_transaction_t transactionDB[MAX_ACCOUNT_NUMBER] = {""};
 
 EN_transState_t recieveTransactionData(ST_transaction_t* transData) {
 	
@@ -32,10 +33,28 @@ EN_serverError_t isBlockedAccount(ST_accountsDB_t** accountRefrence) {
 		return BLOCKED_ACCOUNT;
 	}
 }
-EN_serverError_t isAmountAvailable(ST_terminalData_t* termData, ST_accountsDB_t* accountRefrence) {
-
+EN_serverError_t isAmountAvailable(ST_terminalData_t* termData, ST_accountsDB_t** accountRefrence) {
+	if (termData->transAmount > (*accountRefrence)->balance) {
+		return LOW_BALANCE;
+	}
+	else {
+		return SERVER_OK;
+	}
 }
 EN_serverError_t saveTransaction(ST_transaction_t* transData) {
+	static sequence_number = 1;
+	static account_number = 1;
+	if (sequence_number == MAX_ACCOUNT_NUMBER) {
+		account_number = 1;
+	}
+	transData->transactionSequenceNumber = sequence_number;
+	int i;
+	for (i = 0; i < 4; i++) {
+		transactionDB[sequence_number][i] = transData[i];
+	}
+	account_number++;
+	sequence_number++;
+	return SERVER_OK;
 
 }
 void listSavedTransactions(void) {
