@@ -1,11 +1,13 @@
 #include"tests.h"
 #include<stdio.h>
-ST_cardData_t card = { "","","" };
+#include<string.h>
+ST_cardData_t card = { "","8989374615436851","" };
 ST_terminalData_t terminal = { 0,0,"" };
+extern ST_accountsDB_t accountsDB[255];
 int main(void) {
 	puts("Tester Name: MAHMOUD EHAB");
 	puts("Function Name: getCardHolderName");
-	
+
 	while (1) {
 		//getCardHolderNameTest();
 		//getCardExpiryDateTest();
@@ -14,7 +16,10 @@ int main(void) {
 		//isCardExpriedTest();
 		//getTransactionAmountTest();
 		//isBelowMaxAmountTest();
-		setMaxAmountTest();
+		//setMaxAmountTest();
+		//isValidAccountTest();
+		isBlockedAccountTest();
+		
 	}
 }
 void getCardHolderNameTest(void) {
@@ -161,6 +166,47 @@ void setMaxAmountTest(void) {
 	}
 	else {
 		printf("Actual Result: Invalid Max Amount\n");
+	}
+	i++;
+}
+void isValidAccountTest(void) {
+	static int i = 1;
+	char result = 0;
+	ST_accountsDB_t** ref = NULL;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	getCardPAN(&card);
+	result = isValidAccount(&card, &ref);
+	printf("Address of the Refrence = %p\n", ref);
+	printf("Address in the DB = %p\n", &accountsDB[i-1]);
+	printf("Expected Result: ");
+	(void)scanf("%[^\n]%*c", arr);
+	if (result == 0) {
+		printf("Actual Result : Valid Account\n");
+	}
+	else {
+		printf("Actual Result: Invalid Account\n");
+	}
+	i++;
+}
+void isBlockedAccountTest(void) {
+	static int i = 1;
+	char result = 0;
+	ST_accountsDB_t** ref = NULL;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	getCardPAN(&card);
+	isValidAccount(&card, &ref);
+	result = isBlockedAccount(&ref);
+	printf("Address of the Refrence = %p\n", ref);
+	printf("Address in the DB = %p\n", &accountsDB[i - 1]);
+	printf("Expected Result: ");
+	(void)scanf("%[^\n]%*c", arr);
+	if (result == 0) {
+		printf("Actual Result : Running Account\n");
+	}
+	else {
+		printf("Actual Result: Blocked Account\n");
 	}
 	i++;
 }

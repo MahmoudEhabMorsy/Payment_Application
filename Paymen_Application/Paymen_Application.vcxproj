@@ -36,7 +36,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{3e564a48-2ff4-468a-a223-6219fbcae3f7}</ProjectGuid>
-    <RootNamespace>PaymenApplication</RootNamespace>
+    <RootNamespace>PaymentApplication</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>Payment_Application</ProjectName>
   </PropertyGroup>
