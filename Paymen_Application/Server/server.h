@@ -1,6 +1,5 @@
 #ifndef SERVER_H
 #define SERVER_H
-#include "../Card/card.h"
 #include"../Terminal/terminal.h"
 #include<string.h>
 #include<stdio.h>
@@ -40,5 +39,6 @@ EN_serverError_t isAmountAvailable(ST_terminalData_t* termData, ST_accountsDB_t*
 EN_serverError_t saveTransaction(ST_transaction_t* transData);
 EN_serverError_t saveTransactionWithoutText(ST_transaction_t* transData);
 void listSavedTransactions(void);
+void updateAccountBalance(ST_terminalData_t* termData, ST_accountsDB_t** accountRefrence);
 
 #endif

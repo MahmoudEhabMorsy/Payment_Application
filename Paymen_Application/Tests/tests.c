@@ -1,6 +1,4 @@
 #include"tests.h"
-#include<stdio.h>
-#include<string.h>
 ST_cardData_t card = { "","","" };
 ST_terminalData_t terminal = { 0,0,"" };
 ST_transaction_t transData;
@@ -277,14 +275,6 @@ void saveTransactionTest(void) {
 							transData.terminalData = terminal;
 							recieveTransactionData(&transData);
 							saveTransaction(&transData);
-							/*printf("Expected Result: ");
-							(void)scanf(" %[^\n]%*c", arr);
-							if (result == 0) {
-								printf("Actual Result : Amount Avaliable\n");
-							}
-							else {
-								printf("Actual Result: Low Balance\n");
-							}*/
 						}
 					}
 				}

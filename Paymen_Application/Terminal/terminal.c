@@ -26,13 +26,13 @@ EN_terminalError_t getTransactionDate(ST_terminalData_t* termData) {
 }
 EN_terminalError_t isCardExpired(ST_cardData_t* cardData, ST_terminalData_t* termData) {
 	
-	if (cardData->cardExpirationDate[3] < termData->transactionDate[8]) {
+	if (cardData->cardExpirationDate[3] <= termData->transactionDate[8]) {
 		if (cardData->cardExpirationDate[4] < termData->transactionDate[9]) {
 			return EXPIRED_CARD;
 		}
 	}
 
-	if (cardData->cardExpirationDate[0] < termData->transactionDate[3]) {
+	if (cardData->cardExpirationDate[0] <= termData->transactionDate[3]) {
 		if (cardData->cardExpirationDate[1] < termData->transactionDate[4]) {
 			return EXPIRED_CARD;
 		}

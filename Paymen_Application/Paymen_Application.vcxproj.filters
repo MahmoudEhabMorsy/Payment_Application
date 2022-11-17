@@ -27,6 +27,9 @@
     <ClCompile Include="Terminal\terminal.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Tests\tests.c">
       <Filter>Source Files</Filter>
     </ClCompile>

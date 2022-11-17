@@ -1,7 +1,5 @@
 #ifndef TESTS_H
 #define TESTS_H
-#include"../Card/card.h"
-#include "../Terminal/terminal.h"
 #include"../Server/server.h"
 void getCardHolderNameTest(void);
 void getCardExpiryDateTest(void);

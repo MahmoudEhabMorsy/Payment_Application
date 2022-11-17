@@ -13,17 +13,17 @@ ST_accountsDB_t accountsDB[MAX_ACCOUNT_NUMBER] = { 2000.0, RUNNING, "89893746154
 ST_transaction_t transactionDB[MAX_ACCOUNT_NUMBER] = {""};
 
 EN_transState_t recieveTransactionData(ST_transaction_t* transData) {
-	ST_accountsDB_t** dummy_ref = NULL;
-	if (isValidAccount(&transData->cardHolderData, &dummy_ref) == ACCOUNT_NOT_FOUND) {
+	ST_accountsDB_t** accountRefrence = NULL;
+	if (isValidAccount(&transData->cardHolderData, &accountRefrence) == ACCOUNT_NOT_FOUND) {
 		transData->transState = FRAUD_CARD;
 		return FRAUD_CARD;
 	}
-	if (isAmountAvailable(&transData->terminalData.transAmount, &dummy_ref) == LOW_BALANCE) {
+	if (isAmountAvailable(&transData->terminalData.transAmount, &accountRefrence) == LOW_BALANCE) {
 		transData->transState == DECLINED_INSUFFECIENT_FUND;
 		return DECLINED_INSUFFECIENT_FUND;
 	}
 
-	if (isBlockedAccount(&dummy_ref) == BLOCKED_ACCOUNT) {
+	if (isBlockedAccount(&accountRefrence) == BLOCKED_ACCOUNT) {
 		transData->transState == DECLINED_STOLEN_CARD;
 		return DECLINED_STOLEN_CARD;
 	}
@@ -31,6 +31,7 @@ EN_transState_t recieveTransactionData(ST_transaction_t* transData) {
 		transData->transState == INTERNAL_SERVER_ERROR;
 		return INTERNAL_SERVER_ERROR;
 	}
+	updateAccountBalance(&transData->terminalData, &accountRefrence);
 	transData->transState = APPROVED;
 	return APPROVED;
 
@@ -84,7 +85,7 @@ EN_serverError_t saveTransactionWithoutText(ST_transaction_t* transData) {
 }
 void listSavedTransactions(void) {
 	puts("#########################");
-	printf("\nTransaction Sequence Number: %d", transactionDB[sequence_number].transactionSequenceNumber);
+	printf("Transaction Sequence Number: %d", transactionDB[sequence_number].transactionSequenceNumber);
 	printf("\nTransaction Date: %s", transactionDB[sequence_number].terminalData.transactionDate);
 	printf("\nTransaction Amount: %f", transactionDB[sequence_number].terminalData.transAmount);
 	switch (transactionDB[sequence_number].transState) {
@@ -109,4 +110,8 @@ void listSavedTransactions(void) {
 	printf("\nPAN: %s", transactionDB[sequence_number].cardHolderData.primaryAccountNumber);
 	printf("\nCard Expiration Date: %s", transactionDB[sequence_number].cardHolderData.cardExpirationDate);
 	puts("\n#########################");
+}
+void updateAccountBalance(ST_terminalData_t* termData, ST_accountsDB_t** accountRefrence) {
+	(*accountRefrence)->balance -= termData->transAmount;
+	printf("\nBalance=%f\n", (*accountRefrence)->balance);
 }
