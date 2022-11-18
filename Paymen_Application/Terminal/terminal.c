@@ -40,16 +40,22 @@ Input:struct of type ST_terminalData_t & struct of type ST_cardData_t
 Output:enum of type EN_terminalError_t descripes the state of the function*/
 EN_terminalError_t isCardExpired(ST_cardData_t* cardData, ST_terminalData_t* termData) {
 	/*conditions to check the years first*/
-	if (cardData->cardExpirationDate[3] <= termData->transactionDate[8]) {
+	if (cardData->cardExpirationDate[3] == termData->transactionDate[8]) {
 		if (cardData->cardExpirationDate[4] < termData->transactionDate[9]) {
 			return EXPIRED_CARD;
 		}
 	}
+	if (cardData->cardExpirationDate[3] < termData->transactionDate[8]) {
+			return EXPIRED_CARD;
+	}
 	/*conditions to check the months*/
-	if (cardData->cardExpirationDate[0] <= termData->transactionDate[3]) {
+	if (cardData->cardExpirationDate[0] == termData->transactionDate[3]) {
 		if (cardData->cardExpirationDate[1] < termData->transactionDate[4]) {
 			return EXPIRED_CARD;
 		}
+	}
+	if (cardData->cardExpirationDate[0] < termData->transactionDate[3]) {
+			return EXPIRED_CARD;
 	}
 
 	return TERMINAL_OK;

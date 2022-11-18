@@ -27,10 +27,10 @@
     <ClCompile Include="Tests\tests.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Application\app.c">
+    <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.c">
+    <ClCompile Include="Application\app.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -8,11 +8,11 @@ extern ST_transaction_t transactionDB[255];
 
 int main(void) {
 	puts("Tester Name: MAHMOUD EHAB");
-	puts("Function Name: getCardHolderName");
+	//puts("Function Name: getCardHolderName");
 	//puts("Function Name: getCardExpiryDate");
 	//puts("Function Name: getCardPAN");
 	//puts("Function Name: getTransactionDate");
-	//puts("Function Name: isCardExpried");
+	puts("Function Name: isCardExpried");
 	//puts("Function Name: getTransactionAmount");
 	//puts("Function Name: isBelowMaxAmount");
 	//puts("Function Name: setMaxAmount");
@@ -21,11 +21,11 @@ int main(void) {
 	//puts("Function Name: isAmountAvailable");
 	//puts("Function Name: saveTransaction");
 	while (1) {
-		getCardHolderNameTest();
+		//getCardHolderNameTest();
 		//getCardExpiryDateTest();
 		//getCardPANTest();
 		//getTransactionDateTest();
-		//isCardExpriedTest();
+		isCardExpriedTest();
 		//getTransactionAmountTest();
 		//isBelowMaxAmountTest();
 		//setMaxAmountTest();
@@ -122,18 +122,27 @@ void isCardExpriedTest(void) {
 	char result = 0;
 	char arr[50];
 	printf("TEST CASE %d\n", i);
-	getCardExpiryDate(&card);
-	getTransactionDate(&terminal);
-	result = isCardExpired(&card,&terminal);
-	printf("Expected Result: ");
-	(void)scanf("%[^\n]%*c", arr);
-	if (result == 0) {
-		printf("Actual Result : Transaction is allowed\n");
+	if (!getCardExpiryDate(&card)) {
+		if (!getTransactionDate(&terminal)) {
+			result = isCardExpired(&card, &terminal);
+			printf("Expected Result: ");
+			(void)scanf("%[^\n]%*c", arr);
+			if (result == 0) {
+				printf("Actual Result : Transaction is allowed\n");
+			}
+			else {
+				printf("Actual Result: Expired Card\n");
+			}
+		}
+		else {
+			printf("Wrong Date Format");
+		}
 	}
 	else {
-		printf("Actual Result: Expired Card\n");
+		printf("Wrong Date Format");
 	}
 	i++;
+
 }
 /*getTransactionAmountTest
 Description:function to test getTransactionAmount
