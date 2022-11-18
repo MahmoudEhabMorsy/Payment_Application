@@ -1,8 +1,14 @@
 #include"app.h"
+/*global variables*/
 ST_cardData_t card = { "","","" };
 ST_terminalData_t terminal = { 0,0,"" };
 ST_transaction_t transData;
 ST_accountsDB_t** ref = NULL;
+/*function defination*/
+
+/*appStart
+Description:a function to run the system as descriped by the flow chart
+*/
 void appStart(void) {
 	if (!getCardHolderName(&card)) {
 		if (!getCardExpiryDate(&card)) {

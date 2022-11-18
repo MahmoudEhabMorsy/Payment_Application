@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application\app.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Card\card.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -27,17 +24,17 @@
     <ClCompile Include="Terminal\terminal.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.c">
+    <ClCompile Include="Tests\tests.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\tests.c">
+    <ClCompile Include="Application\app.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application\app.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Card\card.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -48,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tests\tests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

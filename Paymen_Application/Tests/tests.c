@@ -1,15 +1,27 @@
 #include"tests.h"
+/*global variables*/
 ST_cardData_t card = { "","","" };
 ST_terminalData_t terminal = { 0,0,"" };
 ST_transaction_t transData;
 extern ST_accountsDB_t accountsDB[255];
 extern ST_transaction_t transactionDB[255];
+
 int main(void) {
 	puts("Tester Name: MAHMOUD EHAB");
 	puts("Function Name: getCardHolderName");
-
+	//puts("Function Name: getCardExpiryDate");
+	//puts("Function Name: getCardPAN");
+	//puts("Function Name: getTransactionDate");
+	//puts("Function Name: isCardExpried");
+	//puts("Function Name: getTransactionAmount");
+	//puts("Function Name: isBelowMaxAmount");
+	//puts("Function Name: setMaxAmount");
+	//puts("Function Name: isValidAccount");
+	//puts("Function Name: isBlockedAccount");
+	//puts("Function Name: isAmountAvailable");
+	//puts("Function Name: saveTransaction");
 	while (1) {
-		//getCardHolderNameTest();
+		getCardHolderNameTest();
 		//getCardExpiryDateTest();
 		//getCardPANTest();
 		//getTransactionDateTest();
@@ -20,10 +32,15 @@ int main(void) {
 		//isValidAccountTest();
 		//isBlockedAccountTest();
 		//isAmountAvailableTest();
-		saveTransactionTest();
+		//saveTransactionTest();
 		
 	}
 }
+/*functions definitions*/
+
+/*getCardHolderNameTest
+Description:function to test getCardHolerName
+*/
 void getCardHolderNameTest(void) {
 	static int i = 1;
 	char result=0;
@@ -40,6 +57,9 @@ void getCardHolderNameTest(void) {
 	}
 	i++;
 }
+/*getCardExpiryDateTest
+Description:function to test getCardExpiryDate
+*/
 void getCardExpiryDateTest(void) {
 	static int i = 1;
 	char result = 0;
@@ -56,6 +76,9 @@ void getCardExpiryDateTest(void) {
 	}
 	i++;
 }
+/*getCardPANTest
+Description:function to test getCardPAN
+*/
 void getCardPANTest(void) {
 	static int i = 1;
 	char result = 0;
@@ -72,6 +95,9 @@ void getCardPANTest(void) {
 	}
 	i++;
 }
+/*getTransactionDateTest
+Description:function to test getTransactionDate
+*/
 void getTransactionDateTest(void) {
 	static int i = 1;
 	char result = 0;
@@ -88,6 +114,9 @@ void getTransactionDateTest(void) {
 	}
 	i++;
 }
+/*isCardExpriedTest
+Description:function to test isCardExpried
+*/
 void isCardExpriedTest(void) {
 	static int i = 1;
 	char result = 0;
@@ -106,6 +135,9 @@ void isCardExpriedTest(void) {
 	}
 	i++;
 }
+/*getTransactionAmountTest
+Description:function to test getTransactionAmount
+*/
 void getTransactionAmountTest(void) {
 	static int i = 1;
 	char result = 0;
@@ -122,6 +154,9 @@ void getTransactionAmountTest(void) {
 	}
 	i++;
 }
+/*isBelowMaxAmountTest
+Description:function to test isBelowMaxAmount
+*/
 void isBelowMaxAmountTest(void) {
 	static int i = 1;
 	float max;
@@ -152,6 +187,9 @@ void isBelowMaxAmountTest(void) {
 	}
 	i++;
 }
+/*setMaxAmountTest
+Description:function to test setMaxAmount
+*/
 void setMaxAmountTest(void) {
 	static int i = 1;
 	char result = 0;
@@ -171,6 +209,9 @@ void setMaxAmountTest(void) {
 	}
 	i++;
 }
+/*isValidAccountTest
+Description:function to test isValidAccount
+*/
 void isValidAccountTest(void) {
 	static int i = 1;
 	char result = 0;
@@ -191,6 +232,9 @@ void isValidAccountTest(void) {
 	}
 	i++;
 }
+/*isBlockedAccountTest
+Description:function to test isBlockedAccount
+*/
 void isBlockedAccountTest(void) {
 	static int i = 1;
 	char result = 0;
@@ -216,6 +260,9 @@ void isBlockedAccountTest(void) {
 	}
 	i++;
 }
+/*isAmountAvailableTest
+Description:function to test isAmountAvailable
+*/
 void isAmountAvailableTest(void) {
 	static int i = 1;
 	char result = 0;
@@ -245,6 +292,9 @@ void isAmountAvailableTest(void) {
 	}
 	i++;
 }
+/*saveTransactionTest
+Description:function to test saveTransaction
+*/
 void saveTransactionTest(void) {
 	static int i = 1;
 	float max;
