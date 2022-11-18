@@ -12,27 +12,27 @@ int main(void) {
 	//puts("Function Name: getCardExpiryDate");
 	//puts("Function Name: getCardPAN");
 	//puts("Function Name: getTransactionDate");
-	puts("Function Name: isCardExpried");
+	//puts("Function Name: isCardExpried");
 	//puts("Function Name: getTransactionAmount");
 	//puts("Function Name: isBelowMaxAmount");
 	//puts("Function Name: setMaxAmount");
 	//puts("Function Name: isValidAccount");
 	//puts("Function Name: isBlockedAccount");
 	//puts("Function Name: isAmountAvailable");
-	//puts("Function Name: saveTransaction");
+	puts("Function Name: saveTransaction");
 	while (1) {
 		//getCardHolderNameTest();
 		//getCardExpiryDateTest();
 		//getCardPANTest();
 		//getTransactionDateTest();
-		isCardExpriedTest();
+		//isCardExpriedTest();
 		//getTransactionAmountTest();
 		//isBelowMaxAmountTest();
 		//setMaxAmountTest();
 		//isValidAccountTest();
 		//isBlockedAccountTest();
 		//isAmountAvailableTest();
-		//saveTransactionTest();
+		saveTransactionTest();
 		
 	}
 }
@@ -332,8 +332,25 @@ void saveTransactionTest(void) {
 						if (!isAmountAvailable(&terminal, &ref)) {
 							transData.cardHolderData = card;
 							transData.terminalData = terminal;
-							recieveTransactionData(&transData);
-							saveTransaction(&transData);
+							if(recieveTransactionData(&transData)==FRAUD_CARD){
+								printf("Fraud Card\n");
+							}
+							else if (recieveTransactionData(&transData) == DECLINED_INSUFFECIENT_FUND) {
+								printf("Declined insufficent fund\n");
+							}
+							else if (recieveTransactionData(&transData) == DECLINED_STOLEN_CARD) {
+								printf("Declined stolen card\n");
+							}
+							else if (recieveTransactionData(&transData) == INTERNAL_SERVER_ERROR) {
+								printf("internal server error\n");
+							}
+							else {
+								printf("Approved\n");
+								saveTransaction(&transData);
+							}
+						}
+						else {
+							printf("Declined insufficent fund\n");
 						}
 					}
 				}

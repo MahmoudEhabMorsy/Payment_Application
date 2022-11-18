@@ -19,15 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application\app.c" />
     <ClCompile Include="Card\card.c" />
-    <ClCompile Include="main.c" />
     <ClCompile Include="Server\server.c" />
     <ClCompile Include="Terminal\terminal.c" />
     <ClCompile Include="Tests\tests.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application\app.h" />
     <ClInclude Include="Card\card.h" />
     <ClInclude Include="Server\server.h" />
     <ClInclude Include="Terminal\terminal.h" />
