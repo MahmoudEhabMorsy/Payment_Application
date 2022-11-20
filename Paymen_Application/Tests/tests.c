@@ -19,7 +19,8 @@ int main(void) {
 	//puts("Function Name: isValidAccount");
 	//puts("Function Name: isBlockedAccount");
 	//puts("Function Name: isAmountAvailable");
-	puts("Function Name: saveTransaction");
+	//puts("Function Name: saveTransaction");
+	puts("Function Name: recieveTransactionDataTest");
 	while (1) {
 		//getCardHolderNameTest();
 		//getCardExpiryDateTest();
@@ -32,7 +33,8 @@ int main(void) {
 		//isValidAccountTest();
 		//isBlockedAccountTest();
 		//isAmountAvailableTest();
-		saveTransactionTest();
+		//saveTransactionTest();
+		recieveTransactionDataTest();
 		
 	}
 }
@@ -357,5 +359,43 @@ void saveTransactionTest(void) {
 			}
 		}
 	}
+	i++;
+}
+void recieveTransactionDataTest(void) {
+	static int i = 1;
+	float max;
+	char result = 0;
+	ST_accountsDB_t** ref = NULL;
+	char arr[50];
+	printf("TEST CASE %d\n", i);
+	getCardHolderName(&card);
+	getCardPAN(&card);
+	getCardExpiryDate(&card);
+	printf("Enter The Max Amount : ");
+	(void)scanf(" %f", &max);
+	setMaxAmount(&terminal, max);
+		getTransactionAmount(&terminal);
+		getTransactionDate(&terminal);
+		isBelowMaxAmount(&terminal);
+		isCardExpired(&card, &terminal);
+							transData.cardHolderData = card;
+							transData.terminalData = terminal;
+							switch (recieveTransactionData(&transData)) {
+							case FRAUD_CARD:
+								printf("Fraud Card\n");
+								break;
+							case DECLINED_INSUFFECIENT_FUND:
+								printf("Declined insufficent fund\n");
+								break;
+							case DECLINED_STOLEN_CARD:
+								printf("Declined stolen card\n");
+								break;
+							case INTERNAL_SERVER_ERROR:
+								printf("internal server error\n");
+								break;
+							default:
+								printf("Approved\n");
+								break;
+							}
 	i++;
 }

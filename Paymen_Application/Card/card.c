@@ -42,7 +42,7 @@ EN_cardError_t getCardExpiryDate(ST_cardData_t* cardData) {
 	printf("Please Enter The Expiration Date of The Card\n");
 	(void)scanf(" %[^\n]%*c", date);/*takes input form the user until enter is pressed as a string*/
 	/*conditions to make sure the date is valid and in format*/
-	if ((strlen(date) < 5) || (date[0]<'0')||(date[0]>'1')||(date[2]!='/')||(date[3]<'2')||(strlen(date)>5)||((date[0]=='0')&&(date[1]<='0'))||((date[0]=='1')&&(date[1]>'2'))||((date[3]=='2')&&(date[4]<'2'))) {
+	if ((strlen(date) < 5) || (date[0]<'0')||(date[0]>'1')||(date[2]!='/')||(date[3]<'2')||(strlen(date)>5)||((date[0]=='0')&&(date[1]<='0'))||((date[0]=='1')&&(date[1]>'2'))) {
 		return WRONG_EXP_DATE;
 	}
 	uint8_t i = 0;

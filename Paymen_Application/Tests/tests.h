@@ -52,4 +52,6 @@ Description:function to test saveTransaction
 */
 void saveTransactionTest(void);
 
+void recieveTransactionDataTest(void);
+
 #endif
