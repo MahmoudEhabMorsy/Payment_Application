@@ -24,7 +24,10 @@
     <ClCompile Include="Terminal\terminal.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\tests.c">
+    <ClCompile Include="Application\app.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +41,7 @@
     <ClInclude Include="Terminal\terminal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tests\tests.h">
+    <ClInclude Include="Application\app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

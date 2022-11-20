@@ -108,8 +108,6 @@ EN_serverError_t saveTransaction(ST_transaction_t* transData) {
 Description:same as saveTransaction but doesnot list the trans info to be used in recieveTransactionData
 */
 EN_serverError_t saveTransactionWithoutText(ST_transaction_t* transData) {
-	printf("Plese enter the Sequence Number:");
-	(void)scanf("%d", &sequence_number);
 	transData->transactionSequenceNumber = sequence_number;
 	if (transData->transactionSequenceNumber < 255) {
 		transactionDB[sequence_number] = *transData;
@@ -154,8 +152,9 @@ Description:function to update the balance  of the account after transaction com
 Inputs:struct of type ST_terminalData_t & a pointer to pointer to ST_accountsDB_t
 */
 void updateAccountBalance(ST_terminalData_t* termData, ST_accountsDB_t** accountRefrence) {
-	(*accountRefrence)->balance -= termData->transAmount;
 	printf("\n######################################");
 	printf("\nBalance=%f\n", (*accountRefrence)->balance);
+	(*accountRefrence)->balance -= termData->transAmount;
+	printf("\nBalance after transaction=%f\n", (*accountRefrence)->balance);
 	printf("######################################\n");
 }
