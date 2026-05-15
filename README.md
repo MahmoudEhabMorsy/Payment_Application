@@ -249,7 +249,7 @@ The project can be developed and compiled using:
 ## 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/MahmoudEhabMorsy/Payment_Application.git
 ```
 
 ## 2. Navigate to Project Directory
